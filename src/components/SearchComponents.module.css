@@ -1,0 +1,29 @@
+
+
+.progressContainer {
+  height: 4px;
+  margin-bottom: 4px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.ComponentsBox {
+  width: 300px;
+  background-color: whitesmoke;
+}
+
+.SearchInput {
+  width: 100%;
+}
+
+.SearchButton {
+  width: 100%;
+}
+
+.SearchInfo {
+  display: flex;
+  justify-content: center;
+
+}
