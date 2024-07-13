@@ -9,13 +9,12 @@ import LayerList from "@arcgis/core/widgets/LayerList";
 import React, { useEffect, useRef } from "react";
 import { config } from "../config";
 
-import SearchWidget from "./SearchWidget";
-import { createRoot } from "react-dom/client";
-import SearchComponents from "./SearchComponents";
-import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Graphic from "@arcgis/core/Graphic";
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import PictureMarkerSymbol from "@arcgis/core/symbols/PictureMarkerSymbol";
+import { createRoot } from "react-dom/client";
 import { AddPointToMap } from "./Interface.helper";
+import SearchComponents from "./SearchComponents";
 
 const MapComponent: React.FC = () => {
   const mapDiv = useRef<HTMLDivElement>(null);
@@ -96,13 +95,13 @@ const MapComponent: React.FC = () => {
         expandTooltip: "Basemaps",
       });
 
-      //const searchWidget = new SearchWidget();
-
-      //view.ui.add(searchWidget, "top-left");
       view.ui.add(bgExpand, "bottom-right");
       view.ui.add(layerList, "top-right");
 
       const searchExpandDiv = document.createElement("div");
+      searchExpandDiv.style.maxHeight = "512px";
+      searchExpandDiv.style.overflowY = "auto";
+
       view.ui.add(searchExpandDiv, "top-left");
 
       const root = createRoot(searchExpandDiv);
