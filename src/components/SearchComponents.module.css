@@ -1,5 +1,3 @@
-
-
 .progressContainer {
   height: 4px;
   margin-bottom: 4px;
@@ -25,5 +23,22 @@
 .SearchInfo {
   display: flex;
   justify-content: center;
+}
 
+.SearchBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SelectedItem {
+  background-color: #3277bcb4;
+}
+
+.Item {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.Item:hover {
+  background-color: #e0e0e0;
 }

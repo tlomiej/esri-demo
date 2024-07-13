@@ -7,13 +7,13 @@ import {
   Skeleton,
   TextField,
 } from "@mui/material";
-import React, { Key, useReducer, useState } from "react";
-import styles from "./SearchComponents.module.css";
-import { config } from "../config";
 import proj4 from "proj4";
+import React, { Key, useReducer, useState } from "react";
+import { config } from "../config";
 import { EPSG2180, EPSG4326 } from "./EPSG";
-import { formatAddressName, formatString } from "./SearchComponents.helper";
 import { AddPointToMap, AddressResult, ErrorMsg } from "./Interface.helper";
+import { formatAddressName, formatString } from "./SearchComponents.helper";
+import styles from "./SearchComponents.module.css";
 
 type ReducerAction = "FETCH_START" | "FETCH_FAILED" | "FETCH_SUCCESS";
 
@@ -55,6 +55,7 @@ const SearchData: React.FC<SearchComponentProps> = ({
   clearGraphicLayer,
 }) => {
   const [searchText, setSearchText] = useState<string>("");
+  const [selectedIndex, setSelectedIndex] = useState<Key>(-1);
 
   const [state, dispatch] = useReducer(dataFetchReducer, {
     loading: false,
@@ -66,7 +67,6 @@ const SearchData: React.FC<SearchComponentProps> = ({
   const getDataFromUrl = async () => {
     clearGraphicLayer();
     dispatch({ type: "FETCH_START" });
-    const url = "https://services.gugik.gov.pl/uug/?request=GetAddress";
 
     if (searchText.length === 0) {
       dispatch({ type: "FETCH_FAILED", error: ErrorMsg.NO_SEARCH_TECH });
@@ -74,7 +74,9 @@ const SearchData: React.FC<SearchComponentProps> = ({
     if (searchText.length === 0) return;
 
     try {
-      await fetch(url + `&location=${encodeURIComponent(searchText)}`)
+      await fetch(
+        config.SEARCH_URL + `&location=${encodeURIComponent(searchText)}`
+      )
         .then((response) => response.json())
         .then((res) => {
           const errorMode =
@@ -100,13 +102,7 @@ const SearchData: React.FC<SearchComponentProps> = ({
       >
         <LinearProgress />
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className={styles.SearchBox}>
         <form onSubmit={handleSubmit}>
           <TextField
             className={styles.SearchInput}
@@ -147,8 +143,12 @@ const SearchData: React.FC<SearchComponentProps> = ({
                 addressData;
               return (
                 <ListItem
+                  className={
+                    index === selectedIndex ? styles.SelectedItem : styles.Item
+                  }
                   key={index}
-                  onClick={() => {
+                  onClick={(e) => {
+                    setSelectedIndex(index);
                     if (!addPointToMap) return;
                     const [longitude, latitude] = proj4(EPSG2180, EPSG4326, [
                       parseFloat(x),
