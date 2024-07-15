@@ -29,9 +29,9 @@ const MapComponent: React.FC = () => {
 
       const view = new MapView({
         map: map,
-        center: config.INIT_CENTER,
         zoom: config.INIT_ZOOM,
         container: mapDiv.current,
+        extent: config.EXTEND,
       });
 
       const clearGraphicLayer = () => {
