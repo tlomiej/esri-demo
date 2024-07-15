@@ -6,6 +6,7 @@ import {
   ListItemText,
   Skeleton,
   TextField,
+  Typography,
 } from "@mui/material";
 import proj4 from "proj4";
 import React, { Key, useEffect, useReducer, useState } from "react";
@@ -169,7 +170,9 @@ const SearchData: React.FC<SearchComponentProps> = ({
       ) : (
         <List>
           {state.error && (
-            <div className={styles.SearchInfo}>{state.error}</div>
+            <Typography variant="body2" className={styles.SearchInfo}>
+              {state.error}
+            </Typography>
           )}
           {state.data &&
             state.data.results &&
