@@ -1,18 +1,17 @@
+import Graphic from "@arcgis/core/Graphic";
 import Map from "@arcgis/core/Map";
 import esriConfig from "@arcgis/core/config";
 import Point from "@arcgis/core/geometry/Point";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
+import PictureMarkerSymbol from "@arcgis/core/symbols/PictureMarkerSymbol";
 import MapView from "@arcgis/core/views/MapView";
 import BasemapGallery from "@arcgis/core/widgets/BasemapGallery";
 import Expand from "@arcgis/core/widgets/Expand";
 import LayerList from "@arcgis/core/widgets/LayerList";
 import React, { useEffect, useRef } from "react";
-import { config } from "../config";
-
-import Graphic from "@arcgis/core/Graphic";
-import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
-import PictureMarkerSymbol from "@arcgis/core/symbols/PictureMarkerSymbol";
 import { createRoot } from "react-dom/client";
+import { config } from "../config";
 import { AddPointToMap } from "./Interface.helper";
 import SearchComponents from "./SearchComponents";
 
@@ -99,7 +98,7 @@ const MapComponent: React.FC = () => {
       view.ui.add(layerList, "top-right");
 
       const searchExpandDiv = document.createElement("div");
-      searchExpandDiv.style.maxHeight = "512px";
+      searchExpandDiv.style.maxHeight = "80vh";
       searchExpandDiv.style.overflowY = "auto";
 
       view.ui.add(searchExpandDiv, "top-left");
