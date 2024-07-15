@@ -75,7 +75,10 @@ const MapComponent: React.FC = () => {
 
       config.LAYERS.map((layer) => map.add(new FeatureLayer(layer)));
 
-      const graphicsLayer = new GraphicsLayer();
+      const graphicsLayer = new GraphicsLayer({
+        title: "Search",
+        listMode: "hide",
+      });
       map.add(graphicsLayer);
 
       const layerList = new LayerList({
