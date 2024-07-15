@@ -8,10 +8,15 @@ import {
   TextField,
 } from "@mui/material";
 import proj4 from "proj4";
-import React, { Key, useReducer, useState } from "react";
+import React, { Key, useEffect, useReducer, useState } from "react";
 import { config } from "../config";
 import { EPSG2180, EPSG4326 } from "./EPSG";
-import { AddPointToMap, AddressResult, ErrorMsg } from "./Interface.helper";
+import {
+  AddPointToMap,
+  AddressResult,
+  ErrorMsg,
+  ReducerState,
+} from "./Interface.helper";
 import { formatAddressName, formatString } from "./SearchComponents.helper";
 import styles from "./SearchComponents.module.css";
 
@@ -62,7 +67,38 @@ const SearchData: React.FC<SearchComponentProps> = ({
     error: null,
     data: {},
     search: false,
-  });
+  } as ReducerState);
+
+  const zoomToPoint = (
+    x: string,
+    y: string,
+    addressData: Record<string, any>
+  ) => {
+    if (!addPointToMap) return;
+    const [longitude, latitude] = proj4(EPSG2180, EPSG4326, [
+      parseFloat(x),
+      parseFloat(y),
+    ]);
+
+    addPointToMap({
+      x: longitude,
+      y: latitude,
+      properties: addressData,
+      popupTemplate: config.ADDRESS_POPUPTEMPLATE,
+    });
+  };
+
+  useEffect(() => {
+    if (!(state.data && state.data.results)) return;
+
+    const objKeys = Object.keys(state.data.results);
+    if (objKeys.length) {
+      const [key] = objKeys;
+      const fistObj = state.data.results[key];
+      setSelectedIndex(0);
+      zoomToPoint(fistObj.x, fistObj.y, fistObj);
+    }
+  }, [state.data]);
 
   const getDataFromUrl = async () => {
     clearGraphicLayer();
@@ -149,18 +185,7 @@ const SearchData: React.FC<SearchComponentProps> = ({
                   key={index}
                   onClick={(e) => {
                     setSelectedIndex(index);
-                    if (!addPointToMap) return;
-                    const [longitude, latitude] = proj4(EPSG2180, EPSG4326, [
-                      parseFloat(x),
-                      parseFloat(y),
-                    ]);
-
-                    addPointToMap({
-                      x: longitude,
-                      y: latitude,
-                      properties: addressData,
-                      popupTemplate: config.ADDRESS_POPUPTEMPLATE,
-                    });
+                    zoomToPoint(x, y, addressData);
                   }}
                 >
                   <ListItemText

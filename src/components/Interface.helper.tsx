@@ -19,3 +19,10 @@ export enum ErrorMsg {
   NO_RESULT = "Can`t find address...",
   NO_SEARCH_TECH = "Try enter address...",
 }
+
+export interface ReducerState {
+  loading: boolean;
+  error: string | null;
+  data: Record<string, any>;
+  search: boolean;
+}
