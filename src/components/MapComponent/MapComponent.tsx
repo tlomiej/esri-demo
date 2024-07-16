@@ -1,21 +1,17 @@
-import Graphic from "@arcgis/core/Graphic";
 import Map from "@arcgis/core/Map";
 import esriConfig from "@arcgis/core/config";
-import Point from "@arcgis/core/geometry/Point";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
-import PictureMarkerSymbol from "@arcgis/core/symbols/PictureMarkerSymbol";
 import MapView from "@arcgis/core/views/MapView";
 import BasemapGallery from "@arcgis/core/widgets/BasemapGallery";
 import Expand from "@arcgis/core/widgets/Expand";
 import LayerList from "@arcgis/core/widgets/LayerList";
 import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { config } from "../config";
-import { AddPointToMap } from "./Interface.helper";
-import SearchComponents from "./SearchComponents";
+import { config } from "../../config";
+import SearchComponents from "../SearchComponents/SearchComponents";
 
-const MapComponent: React.FC = () => {
+export const MapComponent: React.FC = () => {
   const mapDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,46 +28,6 @@ const MapComponent: React.FC = () => {
         container: mapDiv.current,
         extent: config.EXTEND,
       });
-
-      const clearGraphicLayer = () => {
-        graphicsLayer.removeAll();
-      };
-
-      const addPointToMap = (pointDetails: AddPointToMap) => {
-        const { x, y, properties, popupTemplate } = pointDetails;
-
-        var point = new Point({
-          longitude: x,
-          latitude: y,
-        });
-
-        const pictureMarkerSymbol = new PictureMarkerSymbol({
-          url: "/icons/BluePin1LargeB.png",
-          width: "24px",
-          height: "24px",
-        });
-
-        const pointGraphic = new Graphic({
-          geometry: point,
-          symbol: pictureMarkerSymbol,
-          attributes: properties,
-          popupTemplate: popupTemplate,
-        });
-
-        graphicsLayer.add(pointGraphic);
-
-        view
-          .goTo({
-            target: point,
-            zoom: 21,
-          })
-          .then(() => {
-            view.popup.open({
-              location: point,
-              features: [pointGraphic],
-            });
-          });
-      };
 
       config.LAYERS.map((layer) => map.add(new FeatureLayer(layer)));
 
@@ -108,15 +64,10 @@ const MapComponent: React.FC = () => {
 
       const root = createRoot(searchExpandDiv);
       root.render(
-        <SearchComponents
-          addPointToMap={addPointToMap}
-          clearGraphicLayer={clearGraphicLayer}
-        />
+        <SearchComponents view={view} graphicsLayer={graphicsLayer} />
       );
     }
   }, []);
 
   return <div ref={mapDiv} style={{ height: "100vh", width: "100%" }}></div>;
 };
-
-export default MapComponent;

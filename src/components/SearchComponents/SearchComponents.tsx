@@ -10,14 +10,14 @@ import {
 } from "@mui/material";
 import proj4 from "proj4";
 import React, { Key, useEffect, useReducer, useState } from "react";
-import { config } from "../config";
-import { EPSG2180, EPSG4326 } from "./EPSG";
+import { config } from "../../config";
+import useMapGraphics from "../hooks/useMapGraphics";
+import { EPSG2180, EPSG4326 } from "../utils/EPSG";
 import {
-  AddPointToMap,
   AddressResult,
   ErrorMsg,
   ReducerState,
-} from "./Interface.helper";
+} from "../utils/Interface.helper";
 import { formatAddressName, formatString } from "./SearchComponents.helper";
 import styles from "./SearchComponents.module.css";
 
@@ -52,14 +52,18 @@ function dataFetchReducer(
 }
 
 interface SearchComponentProps {
-  addPointToMap?: (pointDetails: AddPointToMap) => void;
-  clearGraphicLayer: () => void;
+  view: any;
+  graphicsLayer: any;
 }
 
-const SearchData: React.FC<SearchComponentProps> = ({
-  addPointToMap,
-  clearGraphicLayer,
+const SearchComponents: React.FC<SearchComponentProps> = ({
+  view,
+  graphicsLayer,
 }) => {
+  const { clearGraphicLayer, addPointToMap } = useMapGraphics(
+    view,
+    graphicsLayer
+  );
   const [searchText, setSearchText] = useState<string>("");
   const [selectedIndex, setSelectedIndex] = useState<Key>(-1);
 
@@ -75,7 +79,6 @@ const SearchData: React.FC<SearchComponentProps> = ({
     y: string,
     addressData: Record<string, any>
   ) => {
-    if (!addPointToMap) return;
     const [longitude, latitude] = proj4(EPSG2180, EPSG4326, [
       parseFloat(x),
       parseFloat(y),
@@ -204,4 +207,4 @@ const SearchData: React.FC<SearchComponentProps> = ({
   );
 };
 
-export default SearchData;
+export default SearchComponents;
