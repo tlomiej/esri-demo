@@ -28,6 +28,10 @@ export const config = {
             label: "City",
           },
           {
+            fieldName: "code",
+            label: "Code",
+          },
+          {
             fieldName: "street",
             label: "Street",
           },
@@ -35,6 +39,19 @@ export const config = {
             fieldName: "number",
             label: "Number",
           },
+          {
+            fieldName: "teryt",
+            label: "TERYT",
+          },
+          {
+            fieldName: "simc",
+            label: "SIMC",
+          },
+          {
+            fieldName: "ulic",
+            label: "ULIC",
+          },
+      
           {
             fieldName: "x",
             label: "X",
