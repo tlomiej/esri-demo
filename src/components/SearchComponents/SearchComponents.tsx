@@ -8,17 +8,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import proj4 from "proj4";
 import React, { Key, useEffect, useReducer, useState } from "react";
 import { config } from "../../config";
 import useMapGraphics from "../hooks/useMapGraphics";
-import { EPSG2180, EPSG4326 } from "../utils/EPSG";
 import {
   AddressResult,
   ErrorMsg,
   ReducerState,
 } from "../utils/Interface.helper";
-import { formatAddressName, formatString } from "./SearchComponents.helper";
+import {
+  formatAddressName,
+  formatString,
+  projXY,
+} from "./SearchComponents.helper";
 import styles from "./SearchComponents.module.css";
 
 type ReducerAction = "FETCH_START" | "FETCH_FAILED" | "FETCH_SUCCESS";
@@ -79,11 +81,7 @@ const SearchComponents: React.FC<SearchComponentProps> = ({
     y: string,
     addressData: Record<string, any>
   ) => {
-    const [longitude, latitude] = proj4(EPSG2180, EPSG4326, [
-      parseFloat(x),
-      parseFloat(y),
-    ]);
-
+    const [longitude, latitude] = projXY(parseFloat(x), parseFloat(y));
     addPointToMap({
       x: longitude,
       y: latitude,
