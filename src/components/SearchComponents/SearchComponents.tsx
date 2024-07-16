@@ -104,14 +104,18 @@ const SearchComponents: React.FC<SearchComponentProps> = ({
     }
   }, [state.data]);
 
-  const getDataFromUrl = async () => {
+  useEffect(() => {
+    if (!state.loading) return;
     clearGraphicLayer();
+  }, [state.loading]);
+
+  const getDataFromUrl = async () => {
     dispatch({ type: "FETCH_START" });
 
     if (searchText.length === 0) {
       dispatch({ type: "FETCH_FAILED", error: ErrorMsg.NO_SEARCH_TECH });
+      return;
     }
-    if (searchText.length === 0) return;
 
     try {
       await fetch(
@@ -119,9 +123,11 @@ const SearchComponents: React.FC<SearchComponentProps> = ({
       )
         .then((response) => response.json())
         .then((res) => {
-          const errorMode =
-            res.results == null ? { error: ErrorMsg.NO_RESULT } : {};
-          dispatch({ type: "FETCH_SUCCESS", data: res, ...errorMode });
+          dispatch({
+            type: "FETCH_SUCCESS",
+            data: res,
+            ...(res.results == null ? { error: ErrorMsg.NO_RESULT } : {}),
+          });
         });
     } catch (error) {
       dispatch({ type: "FETCH_FAILED", error: ErrorMsg.API });
