@@ -6,6 +6,7 @@ import ApplicationsIcon from "calcite-ui-icons-react/ApplicationsIcon";
 import Extent from "@arcgis/core/geometry/Extent";
 import { config } from "../../config";
 import useMapUndoRedo from "../hooks/useMapUndoRedo";
+import style from "./ToolbarComponents.module.css";
 
 interface ToolbarComponentProps {
   view: any;
@@ -16,7 +17,7 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
 
   return (
     <>
-      <Toolbar>
+      <Toolbar className={style.WidgetBackground}>
         <IconButton
           size="small"
           edge="start"
@@ -32,6 +33,7 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
         </IconButton>
         <IconButton
           size="small"
+          title="Undo"
           edge="start"
           color="inherit"
           aria-label="open drawer"
@@ -42,6 +44,7 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
         </IconButton>
         <IconButton
           size="small"
+          title="redo"
           edge="end"
           color="inherit"
           aria-label="open drawer"
