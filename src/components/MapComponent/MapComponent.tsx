@@ -10,63 +10,67 @@ import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { config } from "../../config";
 import SearchComponents from "../SearchComponents/SearchComponents";
+import ToolbarComponent from "../ToolbarComponent/ToolbarComponent";
 
 export const MapComponent: React.FC = () => {
   const mapDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (mapDiv.current) {
-      esriConfig.apiKey = config.ESRI_API_KEY;
+    if (!mapDiv.current) return;
 
-      const map = new Map({
-        basemap: "arcgis/topographic",
-      });
+    esriConfig.apiKey = config.ESRI_API_KEY;
 
-      const view = new MapView({
-        map: map,
-        zoom: config.INIT_ZOOM,
-        container: mapDiv.current,
-        extent: config.EXTEND,
-      });
+    const map = new Map({
+      basemap: "arcgis/topographic",
+    });
 
-      config.LAYERS.map((layer) => map.add(new FeatureLayer(layer)));
+    const view = new MapView({
+      map: map,
+      zoom: config.INIT_ZOOM,
+      container: mapDiv.current,
+      extent: config.EXTEND,
+    });
 
-      const graphicsLayer = new GraphicsLayer({
-        title: "Search",
-        listMode: "hide",
-      });
-      map.add(graphicsLayer);
+    config.LAYERS.map((layer) => map.add(new FeatureLayer(layer)));
 
-      const layerList = new LayerList({
-        view: view,
-      });
+    const graphicsLayer = new GraphicsLayer({
+      title: "Search",
+      listMode: "hide",
+    });
+    map.add(graphicsLayer);
 
-      const basemapGallery = new BasemapGallery({
-        label: "Basemap",
-        view: view,
-      });
+    const layerList = new LayerList({
+      view: view,
+    });
 
-      const bgExpand = new Expand({
-        view: view,
-        content: basemapGallery,
-        collapseIcon: "add-and-update-features",
-        expandTooltip: "Basemaps",
-      });
+    const basemapGallery = new BasemapGallery({
+      label: "Basemap",
+      view: view,
+    });
 
-      view.ui.add(bgExpand, "bottom-right");
-      view.ui.add(layerList, "top-right");
+    const bgExpand = new Expand({
+      view: view,
+      content: basemapGallery,
+      collapseIcon: "add-and-update-features",
+      expandTooltip: "Basemaps",
+    });
 
-      const searchExpandDiv = document.createElement("div");
-      searchExpandDiv.style.maxHeight = "80vh";
-      searchExpandDiv.style.overflowY = "auto";
+    view.ui.add(bgExpand, "bottom-right");
+    view.ui.add(layerList, "top-right");
 
-      view.ui.add(searchExpandDiv, "top-left");
+    const searchExpandDiv = document.createElement("div");
+    searchExpandDiv.style.maxHeight = "80vh";
+    searchExpandDiv.style.overflowY = "auto";
 
-      const root = createRoot(searchExpandDiv);
-      root.render(
-        <SearchComponents view={view} graphicsLayer={graphicsLayer} />
-      );
-    }
+    view.ui.add(searchExpandDiv, "top-left");
+
+    const root = createRoot(searchExpandDiv);
+    root.render(<SearchComponents view={view} graphicsLayer={graphicsLayer} />);
+
+    const toolbarDiv = document.createElement("div");
+    view.ui.add(toolbarDiv, "top-right");
+    const rootToolbar = createRoot(toolbarDiv);
+    rootToolbar.render(<ToolbarComponent view={view}/>);
   }, []);
 
   return <div ref={mapDiv} style={{ height: "100vh", width: "100%" }}></div>;
