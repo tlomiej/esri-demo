@@ -41,7 +41,7 @@ const useMapGraphics = (view: MapView, graphicsLayer: GraphicsLayer) => {
           zoom: 21,
         })
         .then(() => {
-          view.popup.open({
+          view.openPopup({
             location: point,
             features: [pointGraphic],
           });
