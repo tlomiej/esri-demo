@@ -22,6 +22,8 @@ import {
   projXY,
 } from "./SearchComponents.helper";
 import styles from "./SearchComponents.module.css";
+import MapView from "@arcgis/core/views/MapView";
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 
 type ReducerAction = "FETCH_START" | "FETCH_FAILED" | "FETCH_SUCCESS";
 
@@ -54,8 +56,8 @@ function dataFetchReducer(
 }
 
 interface SearchComponentProps {
-  view: any;
-  graphicsLayer: any;
+  view: MapView;
+  graphicsLayer: GraphicsLayer;
 }
 
 const SearchComponents: React.FC<SearchComponentProps> = ({
