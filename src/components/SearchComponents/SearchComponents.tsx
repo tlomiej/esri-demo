@@ -149,6 +149,7 @@ const SearchComponents: React.FC<SearchComponentProps> = ({
       <div className={styles.SearchBox}>
         <form onSubmit={handleSubmit}>
           <TextField
+            title="Use pattern: City, street house number"
             className={styles.SearchInput}
             placeholder="Enter address here..."
             id="standard-basic"
