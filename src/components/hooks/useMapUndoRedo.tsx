@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import MapView from "@arcgis/core/views/MapView";
 import { Extent } from "@arcgis/core/geometry";
 
@@ -33,7 +33,7 @@ const useMapUndoRedo = (view: MapView) => {
     }
   }, [view]);
 
-  const undoView = () => {
+  const undoView = useCallback(() => {
     if (canUndo && view) {
       isMove.current = true;
       historyIndexRef.current--;
@@ -42,9 +42,9 @@ const useMapUndoRedo = (view: MapView) => {
       setCanUndo(historyIndexRef.current > 0);
       setCanRedo(true);
     }
-  };
+  }, [canUndo, view]);
 
-  const redoView = () => {
+  const redoView = useCallback(() => {
     if (canRedo && view) {
       isMove.current = true;
       historyIndexRef.current++;
@@ -53,7 +53,7 @@ const useMapUndoRedo = (view: MapView) => {
       setCanUndo(true);
       setCanRedo(historyIndexRef.current < historyRef.current.length - 1);
     }
-  };
+  }, [canRedo, view]);
 
   return {
     undoView,
