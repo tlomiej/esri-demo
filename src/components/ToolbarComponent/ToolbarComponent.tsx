@@ -1,15 +1,19 @@
 import { IconButton, Toolbar } from "@mui/material";
 import React from "react";
-import LayerBasemapIcon from "calcite-ui-icons-react/LayerBasemapIcon";
+import UndoIcon from "calcite-ui-icons-react/UndoIcon";
+import RedoIcon from "calcite-ui-icons-react/RedoIcon";
 import ApplicationsIcon from "calcite-ui-icons-react/ApplicationsIcon";
 import Extent from "@arcgis/core/geometry/Extent";
 import { config } from "../../config";
+import useMapUndoRedo from "../hooks/useMapUndoRedo";
 
 interface ToolbarComponentProps {
   view: any;
 }
 
 export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
+  const { undoView, redoView, canUndo, canRedo } = useMapUndoRedo(view);
+
   return (
     <>
       <Toolbar>
@@ -18,7 +22,6 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
           edge="start"
           color="inherit"
           aria-label="open drawer"
-          sx={{ mr: 2 }}
           title="Start extent"
           onClick={() => {
             const extent = new Extent(config.EXTEND);
@@ -27,23 +30,26 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
         >
           <ApplicationsIcon />
         </IconButton>
-       {/*  <IconButton
+        <IconButton
           size="small"
           edge="start"
           color="inherit"
           aria-label="open drawer"
+          onClick={undoView}
+          disabled={!canUndo}
         >
-          <ApplicationsIcon />
+          <UndoIcon />
         </IconButton>
         <IconButton
           size="small"
           edge="end"
           color="inherit"
           aria-label="open drawer"
-          sx={{ mr: 2 }}
+          onClick={redoView}
+          disabled={!canRedo}
         >
-          <LayerBasemapIcon />
-        </IconButton> */}
+          <RedoIcon />
+        </IconButton>
       </Toolbar>
     </>
   );
