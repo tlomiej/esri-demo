@@ -1,4 +1,4 @@
-import { IconButton, Toolbar } from "@mui/material";
+import { ButtonGroup, IconButton, Toolbar } from "@mui/material";
 import React from "react";
 import UndoIcon from "calcite-ui-icons-react/UndoIcon";
 import RedoIcon from "calcite-ui-icons-react/RedoIcon";
@@ -17,7 +17,12 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
 
   return (
     <>
-      <Toolbar className={style.WidgetBackground}>
+      <ButtonGroup
+        className={style.WidgetBackground}
+        orientation="horizontal"
+        aria-label="vertical outlined button group"
+        variant="contained"
+      >
         <IconButton
           size="small"
           edge="start"
@@ -53,7 +58,7 @@ export const ToolbarComponent: React.FC<ToolbarComponentProps> = ({ view }) => {
         >
           <RedoIcon />
         </IconButton>
-      </Toolbar>
+      </ButtonGroup>
     </>
   );
 };
