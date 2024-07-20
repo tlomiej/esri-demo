@@ -11,6 +11,7 @@ import { createRoot } from "react-dom/client";
 import { config } from "../../config";
 import SearchComponents from "../SearchComponents/SearchComponents";
 import ToolbarComponent from "../ToolbarComponent/ToolbarComponent";
+import CoordinatesComponent from "../CoordinatesComponent/CoordinatesComponent";
 
 export const MapComponent: React.FC = () => {
   const mapDiv = useRef<HTMLDivElement>(null);
@@ -70,7 +71,12 @@ export const MapComponent: React.FC = () => {
     const toolbarDiv = document.createElement("div");
     view.ui.add(toolbarDiv, "top-right");
     const rootToolbar = createRoot(toolbarDiv);
-    rootToolbar.render(<ToolbarComponent view={view}/>);
+    rootToolbar.render(<ToolbarComponent view={view} />);
+
+    const coordDiv = document.createElement("div");
+    view.ui.add(coordDiv, "top-right");
+    const rootCoord = createRoot(coordDiv);
+    rootCoord.render(<CoordinatesComponent view={view} />);
   }, []);
 
   return <div ref={mapDiv} style={{ height: "100vh", width: "100%" }}></div>;
