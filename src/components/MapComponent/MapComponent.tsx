@@ -74,7 +74,7 @@ export const MapComponent: React.FC = () => {
     rootToolbar.render(<ToolbarComponent view={view} />);
 
     const coordDiv = document.createElement("div");
-    view.ui.add(coordDiv, "top-right");
+    view.ui.add(coordDiv, "bottom-right");
     const rootCoord = createRoot(coordDiv);
     rootCoord.render(<CoordinatesComponent view={view} />);
   }, []);

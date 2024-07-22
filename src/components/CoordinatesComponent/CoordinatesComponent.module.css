@@ -1,0 +1,14 @@
+.container {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    row-gap: 1em;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: whitesmoke;
+  }
+
+.ItemLeft {
+    padding-right: 10px;
+}
