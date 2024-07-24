@@ -1,16 +1,27 @@
 .container {
-    width: 360px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    row-gap: 1em;
-    padding: 5px;
-    border-radius: 4px;
-    background-color: whitesmoke;
-  }
+  width: 360px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 1em;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: whitesmoke;
+}
 
-  .customSelect .MuiInputBase-root::before,
-  .customSelect .MuiInputBase-root::after {
-    border: none;
+@media (max-width: 450px) {
+  .container {
+    width: 150px;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1em;
   }
+}
+
+.item {
+  width: 45px;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
