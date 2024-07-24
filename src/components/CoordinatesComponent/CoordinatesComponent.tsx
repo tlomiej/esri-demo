@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import style from "./CoordinatesComponent.module.css";
 import { Select, SelectChangeEvent, MenuItem } from "@mui/material";
-import { EPSG } from "./../utils/EPSG";
+import { BASEEPSG, EPSG } from "./../utils/EPSG";
 import { projXY } from "../SearchComponents/SearchComponents.helper";
 import { findProjectionByName } from "../utils/Projection.helper";
 
@@ -14,11 +14,10 @@ interface CoordinatesComponentProps {
 export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
   view,
 }) => {
-  const BASEEPSG = "EPSG: 4326";
   const [coords, setCoords] = useState({
     latitude: 0,
     longitude: 0,
-    epsg: "EPSG: 4326",
+    epsg: BASEEPSG,
   });
   const [epsg, setEpsg] = useState(BASEEPSG);
 
@@ -33,7 +32,7 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
           findProjectionByName(BASEEPSG).def,
           findProjectionByName(epsg).def
         );
-        setCoords({ latitude: x, longitude: y , epsg});
+        setCoords({ latitude: x, longitude: y, epsg });
       };
 
       const handle = view.on("pointer-move", handlePointerMove);
@@ -61,10 +60,32 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
   return (
     <>
       <Box component="section" className={style.container}>
-        <div className={style.ItemLeft}>{coords.latitude.toFixed(5)}</div>
-        <div className={style.ItemLeft}>{coords.longitude.toFixed(5)}</div>
+        {epsg === BASEEPSG ? (
+          <>
+            <div>
+              <span>λ</span>
+              <span>{coords.latitude.toFixed(5)}</span>
+            </div>
+            <div>
+              <span>φ</span>
+              <span>{coords.longitude.toFixed(5)}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <span>x</span>
+              <span>{coords.latitude.toFixed(2)}</span>
+            </div>
+            <div>
+              <span>y</span>
+              <span>{coords.longitude.toFixed(2)}</span>
+            </div>
+          </>
+        )}
 
         <Select
+          className={style.customSelect}
           title="EPSG"
           defaultValue={epsg}
           value={epsg}
