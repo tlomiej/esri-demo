@@ -15,12 +15,15 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
   view,
 }) => {
   const BASEEPSG = "EPSG: 4326";
-  const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
+  const [coords, setCoords] = useState({
+    latitude: 0,
+    longitude: 0,
+    epsg: "EPSG: 4326",
+  });
   const [epsg, setEpsg] = useState(BASEEPSG);
 
   useEffect(() => {
     if (view) {
-      console.log(epsg);
       const handlePointerMove = (evt: any) => {
         const point = view.toMap({ x: evt.x, y: evt.y });
 
@@ -30,7 +33,7 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
           findProjectionByName(BASEEPSG).def,
           findProjectionByName(epsg).def
         );
-        setCoords({ latitude: x, longitude: y });
+        setCoords({ latitude: x, longitude: y , epsg});
       };
 
       const handle = view.on("pointer-move", handlePointerMove);
@@ -45,6 +48,16 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
     setEpsg(event.target.value as string);
   };
 
+  useEffect(() => {
+    const [x, y] = projXY(
+      coords.latitude,
+      coords.longitude,
+      findProjectionByName(coords.epsg).def,
+      findProjectionByName(epsg).def
+    );
+    setCoords({ latitude: x, longitude: y, epsg });
+  }, [epsg]);
+
   return (
     <>
       <Box component="section" className={style.container}>
@@ -58,7 +71,11 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
           onChange={handleChange}
         >
           {EPSG.map((e) => {
-            return <MenuItem value={e.name}>{e.name}</MenuItem>;
+            return (
+              <MenuItem key={e.name} value={e.name}>
+                {e.name}
+              </MenuItem>
+            );
           })}
         </Select>
       </Box>
