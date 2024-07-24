@@ -14,8 +14,9 @@ interface CoordinatesComponentProps {
 export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
   view,
 }) => {
+  const BASEEPSG = "EPSG: 4326";
   const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
-  const [epsg, setEpsg] = useState("EPSG: 4326");
+  const [epsg, setEpsg] = useState(BASEEPSG);
 
   useEffect(() => {
     if (view) {
@@ -26,7 +27,7 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
         const [x, y] = projXY(
           point.latitude,
           point.longitude,
-          findProjectionByName("EPSG: 4326").def,
+          findProjectionByName(BASEEPSG).def,
           findProjectionByName(epsg).def
         );
         setCoords({ latitude: x, longitude: y });
