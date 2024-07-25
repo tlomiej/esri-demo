@@ -69,7 +69,10 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
 
   return (
     <>
-      <Box component="section" className={style.container}>
+      <Box
+        component="section"
+        className={`${style.container} ${open ? "" : style.CollapseElement}`}
+      >
         {epsg === BASEEPSG ? (
           <>
             <div className={style.item}>
@@ -112,7 +115,12 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
               setOpen(!open);
             }}
           >
-            <WebIcon />
+            <WebIcon
+              title={epsg}
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
           </IconButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <FormControl size="small">

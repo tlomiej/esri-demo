@@ -1,5 +1,5 @@
 .container {
-  width: 365px;
+  width: 375px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -8,6 +8,11 @@
   padding: 5px;
   border-radius: 4px;
   background-color: whitesmoke;
+  transition: width 0.5s ease;
+}
+
+.CollapseElement {
+    width: 265px;
 }
 
 @media (max-width: 450px) {
