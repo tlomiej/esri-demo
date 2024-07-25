@@ -1,5 +1,5 @@
 .container {
-  width: 420px;
+  width: 365px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -17,6 +17,10 @@
     justify-content: center;
     row-gap: 1em;
   }
+}
+
+.EpsgBox {
+  display: flex;
 }
 
 .item {

@@ -101,37 +101,39 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
             </div>
           </>
         )}
-        <IconButton
-          size="small"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          title="Open"
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          <WebIcon />
-        </IconButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <FormControl size="small">
-            <Select
-              className={style.customSelect}
-              title="EPSG"
-              defaultValue={epsg}
-              value={epsg}
-              onChange={handleChange}
-            >
-              {EPSG.map((e) => {
-                return (
-                  <MenuItem key={e.name} value={e.name}>
-                    {e.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Collapse>
+        <div className={style.EpsgBox}>
+          <IconButton
+            size="small"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            title={epsg}
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            <WebIcon />
+          </IconButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <FormControl size="small">
+              <Select
+                className={style.customSelect}
+                title="EPSG"
+                defaultValue={epsg}
+                value={epsg}
+                onChange={handleChange}
+              >
+                {EPSG.map((e) => {
+                  return (
+                    <MenuItem key={e.name} value={e.name}>
+                      {e.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Collapse>
+        </div>
       </Box>
     </>
   );
