@@ -32,25 +32,24 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
   const [epsg, setEpsg] = useState(BASEEPSG);
 
   useEffect(() => {
-    if (view) {
-      const handlePointerMove = (evt: any) => {
-        const point = view.toMap({ x: evt.x, y: evt.y });
+    if (!view) return;
+    const handlePointerMove = (evt: any) => {
+      const point = view.toMap({ x: evt.x, y: evt.y });
 
-        const [x, y] = projXY(
-          point.latitude,
-          point.longitude,
-          findProjectionByName(BASEEPSG).def,
-          findProjectionByName(epsg).def
-        );
-        setCoords({ latitude: x, longitude: y, epsg });
-      };
+      const [x, y] = projXY(
+        point.latitude,
+        point.longitude,
+        findProjectionByName(BASEEPSG).def,
+        findProjectionByName(epsg).def
+      );
+      setCoords({ latitude: x, longitude: y, epsg });
+    };
 
-      const handle = view.on("pointer-move", handlePointerMove);
+    const handle = view.on("pointer-move", handlePointerMove);
 
-      return () => {
-        handle.remove();
-      };
-    }
+    return () => {
+      handle.remove();
+    };
   }, [epsg, view]);
 
   const handleChange = (event: SelectChangeEvent) => {
