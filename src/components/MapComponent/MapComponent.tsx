@@ -12,6 +12,7 @@ import { config } from "../../config";
 import SearchComponents from "../SearchComponents/SearchComponents";
 import ToolbarComponent from "../ToolbarComponent/ToolbarComponent";
 import CoordinatesComponent from "../CoordinatesComponent/CoordinatesComponent";
+import LayerTreeComponent from "../LayersTreeComponent/LayerTreeComponent";
 
 export const MapComponent: React.FC = () => {
   const mapDiv = useRef<HTMLDivElement>(null);
@@ -72,6 +73,11 @@ export const MapComponent: React.FC = () => {
     view.ui.add(toolbarDiv, "top-right");
     const rootToolbar = createRoot(toolbarDiv);
     rootToolbar.render(<ToolbarComponent view={view} />);
+
+    const treeDiv = document.createElement("div");
+    view.ui.add(treeDiv, "top-right");
+    const rootTree = createRoot(treeDiv);
+    rootTree.render(<LayerTreeComponent view={view} />);
 
     const coordDiv = document.createElement("div");
     view.ui.add(coordDiv, "bottom-right");

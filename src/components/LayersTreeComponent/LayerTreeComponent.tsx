@@ -1,7 +1,10 @@
+import MapView from "@arcgis/core/views/MapView";
 import React from "react";
 
-interface LayerTreeComponentProps {}
-const LayerTreeComponent: React.FC<LayerTreeComponentProps> = () => {
+interface LayerTreeComponentProps {
+  view: MapView;
+}
+const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({ view }) => {
   return <div>Layer tree component init</div>;
 };
 
