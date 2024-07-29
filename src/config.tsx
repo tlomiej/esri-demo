@@ -12,8 +12,24 @@ export const config = {
 
   LAYERS: [
     {
+      id:'3',
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa",
+    },
+    {
+      id:'34',
+      url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
+      title: "Drzewa1",
+    },
+    {
+      id:'35',
+      url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
+      title: "Drzewa2",
+    },
+    {
+      id:'36',
+      url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
+      title: "Drzewa3",
     },
   ],
 
