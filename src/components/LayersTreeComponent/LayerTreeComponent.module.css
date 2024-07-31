@@ -1,7 +1,8 @@
 .flexPaper {
   flex: 1;
-  margin: 16;
-  min-width: 350;
+  margin: 16px;
+  min-width: 350px;
+  max-width: 600px;
 }
 
 .root {
@@ -9,7 +10,6 @@
   flex-wrap: "wrap";
 }
 
-
 .draggingListItem {
-    background: "rgb(235,235,235)",
-  }
+  background: "rgb(235,235,235)";
+}

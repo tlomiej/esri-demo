@@ -12,24 +12,28 @@ export const config = {
 
   LAYERS: [
     {
-      id:'3',
+      id: "3",
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa",
+      visible: true,
     },
     {
-      id:'34',
+      id: "34",
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa1",
+      visible: true,
     },
     {
-      id:'35',
+      id: "35",
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa2",
+      visible: false,
     },
     {
-      id:'36',
+      id: "36",
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa3",
+      visible: true,
     },
   ],
 
@@ -67,7 +71,7 @@ export const config = {
             fieldName: "ulic",
             label: "ULIC",
           },
-      
+
           {
             fieldName: "x",
             label: "X",

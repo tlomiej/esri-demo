@@ -5,15 +5,11 @@ import { Paper } from "@mui/material";
 import DraggableList from "./DraggableList";
 import { DropResult } from "react-beautiful-dnd";
 import style from "./LayerTreeComponent.module.css";
+import { Item } from "./Interface";
+
 interface LayerTreeComponentProps {
   view: MapView;
 }
-
-type Item = {
-  id: string;
-  title: string;
-  url: string;
-};
 
 const reorder = (list: Item[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
@@ -27,20 +23,14 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({ view }) => {
   const [items, setItems] = React.useState<Item[]>(config.LAYERS);
 
   const onDragEnd = ({ destination, source }: DropResult) => {
-    // dropped outside the list
     if (!destination) return;
 
     const newItems = reorder(items, source.index, destination.index);
-
     setItems(newItems);
   };
 
   return (
     <div>
-      {config.LAYERS.map((layer) => {
-        return <div>{layer.title}</div>;
-      })}
-      Layer tree component init
       <Paper className={style.flexPaper}>
         <DraggableList items={items} onDragEnd={onDragEnd} />
       </Paper>
