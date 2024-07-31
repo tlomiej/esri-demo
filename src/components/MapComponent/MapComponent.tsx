@@ -22,7 +22,7 @@ export const MapComponent: React.FC = () => {
 
     esriConfig.apiKey = config.ESRI_API_KEY;
 
-    const map = new Map({
+    const map: Map = new Map({
       basemap: "arcgis/topographic",
     });
 
@@ -77,7 +77,7 @@ export const MapComponent: React.FC = () => {
     const treeDiv = document.createElement("div");
     view.ui.add(treeDiv, "top-right");
     const rootTree = createRoot(treeDiv);
-    rootTree.render(<LayerTreeComponent view={view} />);
+    rootTree.render(<LayerTreeComponent view={view} map={map} />);
 
     const coordDiv = document.createElement("div");
     view.ui.add(coordDiv, "bottom-right");

@@ -19,8 +19,8 @@ export const config = {
     },
     {
       id: "34",
-      url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
-      title: "Drzewa1",
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/USGS_Seismic_Data_v1/FeatureServer/1",
+      title: "Trzesienia1",
       visible: true,
     },
     {

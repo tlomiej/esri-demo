@@ -18,9 +18,14 @@ import { Item } from "./Interface";
 export type DraggableListItemProps = {
   item: Item;
   index: number;
+  onChangeItem: (item: Item) => void;
 };
 
-const DraggableListItem = ({ item, index }: DraggableListItemProps) => {
+const DraggableListItem = ({
+  item,
+  index,
+  onChangeItem,
+}: DraggableListItemProps) => {
   return (
     <Draggable draggableId={item.id} index={index}>
       {(
@@ -30,7 +35,14 @@ const DraggableListItem = ({ item, index }: DraggableListItemProps) => {
         <ListItem
           secondaryAction={
             <>
-              <IconButton edge="end" aria-label="visible">
+              <IconButton
+                edge="end"
+                aria-label="visible"
+                onClick={(e) => {
+                  item.visible = !item.visible;
+                  onChangeItem(item);
+                }}
+              >
                 {item.visible ? <ViewMixedIcon /> : <ViewHideIcon />}
               </IconButton>
             </>
