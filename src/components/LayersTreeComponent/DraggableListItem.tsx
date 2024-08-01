@@ -14,11 +14,12 @@ import ViewMixedIcon from "calcite-ui-icons-react/ViewMixedIcon";
 
 import style from "./LayerTreeComponent.module.css";
 import { Item } from "./Interface";
+import Layer from "@arcgis/core/layers/Layer";
 
 export type DraggableListItemProps = {
-  item: Item;
+  item: Layer;
   index: number;
-  onChangeItem: (item: Item) => void;
+  onChangeItem: (item: Layer) => void;
 };
 
 const DraggableListItem = ({

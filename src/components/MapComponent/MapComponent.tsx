@@ -43,6 +43,7 @@ export const MapComponent: React.FC = () => {
 
     const layerList = new LayerList({
       view: view,
+      dragEnabled: true
     });
 
     const basemapGallery = new BasemapGallery({

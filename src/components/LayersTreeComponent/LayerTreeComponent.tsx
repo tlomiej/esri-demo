@@ -1,5 +1,6 @@
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
+import Layer from "@arcgis/core/layers/Layer";
 import React from "react";
 import { config } from "../../config";
 import { Paper } from "@mui/material";
@@ -13,7 +14,7 @@ interface LayerTreeComponentProps {
   map: Map;
 }
 
-const reorder = (list: Item[], startIndex: number, endIndex: number) => {
+const reorder = (list: Layer[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -30,7 +31,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
   view,
   map,
 }) => {
-  const [items, setItems] = React.useState<Item[]>(config.LAYERS.reverse());
+  const [items, setItems] = React.useState<Layer[]>(map.layers.filter(layer => layer.type === "feature").toArray());
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
@@ -52,7 +53,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
             const newItems = items.map((item) =>
               item.id === e.id ? { ...e } : item
             );
-            setItems(newItems);
+            setItems(newItems as Layer[]);
 
             //visible
             const layer = map.findLayerById(e.id);
