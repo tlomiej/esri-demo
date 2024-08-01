@@ -1,13 +1,11 @@
-import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
 import Layer from "@arcgis/core/layers/Layer";
-import React from "react";
-import { config } from "../../config";
+import MapView from "@arcgis/core/views/MapView";
 import { Paper } from "@mui/material";
-import DraggableList from "./DraggableList";
+import React from "react";
 import { DropResult } from "react-beautiful-dnd";
+import DraggableList from "./DraggableList";
 import style from "./LayerTreeComponent.module.css";
-import { Item } from "./Interface";
 
 interface LayerTreeComponentProps {
   view: MapView;
@@ -31,7 +29,12 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
   view,
   map,
 }) => {
-  const [items, setItems] = React.useState<Layer[]>(map.layers.filter(layer => layer.type === "feature").toArray());
+  const [items, setItems] = React.useState<Layer[]>(
+    map.layers
+      .filter((layer) => layer.type === "feature")
+      .toArray()
+      .reverse()
+  );
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
@@ -40,8 +43,30 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
     setItems(newItems);
 
     //set new place
-    reorderMap(map, items[source.index].id, items.length - destination.index - 1);
+    reorderMap(
+      map,
+      items[source.index].id,
+      items.length - destination.index - 1
+    );
   };
+
+  const handleLayerChange = (event: {
+    added: any[];
+    removed: any[];
+    moved: any[];
+  }) => {
+    if (event.moved) {
+      console.log("Layer moved: ");
+      setItems(
+        map.layers
+          .filter((layer) => layer.type === "feature")
+          .toArray()
+          .reverse()
+      );
+    }
+  };
+
+  map.layers.on("change", handleLayerChange);
 
   return (
     <div>
