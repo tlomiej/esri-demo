@@ -114,12 +114,7 @@ export const CoordinatesComponent: React.FC<CoordinatesComponentProps> = ({
               setOpen(!open);
             }}
           >
-            <WebIcon
-              title={epsg}
-              onClick={() => {
-                setOpen(!open);
-              }}
-            />
+            <WebIcon title={epsg} />
           </IconButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <FormControl size="small">
