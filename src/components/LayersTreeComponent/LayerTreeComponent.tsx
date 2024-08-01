@@ -30,7 +30,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
   view,
   map,
 }) => {
-  const [items, setItems] = React.useState<Item[]>(config.LAYERS);
+  const [items, setItems] = React.useState<Item[]>(config.LAYERS.reverse());
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
