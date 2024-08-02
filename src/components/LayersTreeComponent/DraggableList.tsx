@@ -1,12 +1,11 @@
+import Layer from "@arcgis/core/layers/Layer";
 import * as React from "react";
-import DraggableListItem from "./DraggableListItem";
 import {
   DragDropContext,
   Droppable,
   OnDragEndResponder,
 } from "react-beautiful-dnd";
-import { Item } from "./Interface";
-import Layer from "@arcgis/core/layers/Layer";
+import DraggableListItem from "./DraggableListItem";
 
 export type DraggableListProps = {
   items: Layer[];

@@ -13,7 +13,6 @@ import ViewHideIcon from "calcite-ui-icons-react/ViewHideIcon";
 import ViewMixedIcon from "calcite-ui-icons-react/ViewMixedIcon";
 
 import style from "./LayerTreeComponent.module.css";
-import { Item } from "./Interface";
 import Layer from "@arcgis/core/layers/Layer";
 
 export type DraggableListItemProps = {
