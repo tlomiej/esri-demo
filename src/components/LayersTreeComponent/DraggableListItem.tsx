@@ -1,24 +1,24 @@
-import React from "react";
-import { Draggable } from "react-beautiful-dnd";
-import ApplicationsIcon from "calcite-ui-icons-react/ApplicationsIcon";
 import {
+  Avatar,
+  IconButton,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
-  IconButton,
 } from "@mui/material";
+import ApplicationsIcon from "calcite-ui-icons-react/ApplicationsIcon";
+import { Draggable } from "react-beautiful-dnd";
 
 import ViewHideIcon from "calcite-ui-icons-react/ViewHideIcon";
 import ViewMixedIcon from "calcite-ui-icons-react/ViewMixedIcon";
 
-import style from "./LayerTreeComponent.module.css";
 import Layer from "@arcgis/core/layers/Layer";
+import { Item } from "./Intefrace";
+import style from "./LayerTreeComponent.module.css";
 
 export type DraggableListItemProps = {
-  item: Layer;
+  item: Item;
   index: number;
-  onChangeItem: (item: Layer) => void;
+  onChangeItem: (item: Item) => void;
 };
 
 const DraggableListItem = ({
@@ -38,7 +38,7 @@ const DraggableListItem = ({
               <IconButton
                 edge="end"
                 aria-label="visible"
-                onClick={(e) => {
+                onClick={() => {
                   item.visible = !item.visible;
                   onChangeItem(item);
                 }}

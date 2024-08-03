@@ -1,4 +1,3 @@
-import Layer from "@arcgis/core/layers/Layer";
 import * as React from "react";
 import {
   DragDropContext,
@@ -6,11 +5,12 @@ import {
   OnDragEndResponder,
 } from "react-beautiful-dnd";
 import DraggableListItem from "./DraggableListItem";
+import { Item } from "./Intefrace";
 
 export type DraggableListProps = {
-  items: Layer[];
+  items: Item[];
   onDragEnd: OnDragEndResponder;
-  onChangeItem: (item: Layer) => void;
+  onChangeItem: (item: Item) => void;
 };
 
 const DraggableList = React.memo(

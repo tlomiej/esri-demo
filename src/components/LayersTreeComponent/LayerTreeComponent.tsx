@@ -6,13 +6,15 @@ import React from "react";
 import { DropResult } from "react-beautiful-dnd";
 import DraggableList from "./DraggableList";
 import style from "./LayerTreeComponent.module.css";
+import { Item } from "./Intefrace";
+import { config } from "../../config";
 
 interface LayerTreeComponentProps {
   view: MapView;
   map: Map;
 }
 
-const reorder = (list: Layer[], startIndex: number, endIndex: number) => {
+const reorder = (list: Item[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -29,12 +31,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
   view,
   map,
 }) => {
-  const [items, setItems] = React.useState<Layer[]>(
-    map.layers
-      .filter((layer) => layer.type === "feature")
-      .toArray()
-      .reverse()
-  );
+  const [items, setItems] = React.useState<Item[]>(config.LAYERS.reverse());
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
@@ -50,7 +47,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
     );
   };
 
-  const handleLayerChange = (event: {
+/*   const handleLayerChange = (event: {
     added: any[];
     removed: any[];
     moved: any[];
@@ -65,7 +62,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
     }
   };
 
-  map.layers.on("change", handleLayerChange);
+  map.layers.on("change", handleLayerChange); */
 
   return (
     <div>
@@ -74,17 +71,18 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
           items={items}
           onDragEnd={onDragEnd}
           onChangeItem={(e) => {
-            items.forEach((e) => {
-              console.log(e.id);
-            });
-            const newItems = items.map((item) => (item.id === e.id ? {...e} as Layer : item));
-            console.log('aaaaaa',newItems[1].title);
-            setItems(newItems);
+            const changeLayer = map.findLayerById(e.id);
+            if (changeLayer) {
+              changeLayer.visible = !changeLayer.visible;
 
-            //visible
-            const layer = map.findLayerById(e.id);
-            if (layer) {
-              layer.visible = !layer.visible;
+              const newItems = items.map((item) =>
+                item.id === e.id ? { ...e } : item
+              );
+
+              //visible
+              console.log(newItems[0].visible);
+
+              setItems(newItems);
             }
           }}
         />
