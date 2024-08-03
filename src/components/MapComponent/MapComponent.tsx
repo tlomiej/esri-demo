@@ -59,7 +59,7 @@ export const MapComponent: React.FC = () => {
     });
 
     view.ui.add(bgExpand, "bottom-right");
-    view.ui.add(layerList, "top-right");
+    view.ui.add(layerList, "top-left");
 
     const searchExpandDiv = document.createElement("div");
     searchExpandDiv.style.maxHeight = "80vh";

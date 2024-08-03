@@ -56,7 +56,6 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
     moved: any[];
   }) => {
     if (event.moved) {
-      console.log("Layer moved: ");
       setItems(
         map.layers
           .filter((layer) => layer.type === "feature")
@@ -75,10 +74,12 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
           items={items}
           onDragEnd={onDragEnd}
           onChangeItem={(e) => {
-            const newItems = items.map((item) =>
-              item.id === e.id ? { ...e } : item
-            );
-            setItems(newItems as Layer[]);
+            items.forEach((e) => {
+              console.log(e.id);
+            });
+            const newItems = items.map((item) => (item.id === e.id ? {...e} as Layer : item));
+            console.log('aaaaaa',newItems[1].title);
+            setItems(newItems);
 
             //visible
             const layer = map.findLayerById(e.id);
