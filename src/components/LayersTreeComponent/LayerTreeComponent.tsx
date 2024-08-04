@@ -1,13 +1,12 @@
 import Map from "@arcgis/core/Map";
-import Layer from "@arcgis/core/layers/Layer";
 import MapView from "@arcgis/core/views/MapView";
 import { Paper } from "@mui/material";
 import React from "react";
 import { DropResult } from "react-beautiful-dnd";
-import DraggableList from "./DraggableList";
-import style from "./LayerTreeComponent.module.css";
-import { Item } from "./Intefrace";
 import { config } from "../../config";
+import DraggableList from "./DraggableList";
+import { Item } from "./Intefrace";
+import style from "./LayerTreeComponent.module.css";
 
 interface LayerTreeComponentProps {
   view: MapView;
