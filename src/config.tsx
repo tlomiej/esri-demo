@@ -19,18 +19,24 @@ export const config = {
     },
     {
       id: "34",
-      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/USGS_Seismic_Data_v1/FeatureServer/1",
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/USGS_Seismic_Data_v1/FeatureServer/0",
       title: "Trzesienia1",
       visible: true,
     },
     {
       id: "35",
+      url: "https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/USGS_Seismic_Data_v1/FeatureServer/1",
+      title: "Shake Intensity",
+      visible: true,
+    },
+    {
+      id: "37",
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa2",
       visible: false,
     },
     {
-      id: "36",
+      id: "3888",
       url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
       title: "Drzewa3",
       visible: true,
