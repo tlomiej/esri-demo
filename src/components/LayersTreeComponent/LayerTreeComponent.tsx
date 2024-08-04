@@ -83,10 +83,6 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
               const newItems = items.map((item) =>
                 item.id === e.id ? { ...e } : item
               );
-
-              //visible
-              console.log(newItems[0].visible);
-
               setItems(newItems);
             }
           }}
