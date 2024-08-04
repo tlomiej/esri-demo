@@ -47,7 +47,7 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
     );
   };
 
-/*   const handleLayerChange = (event: {
+  const handleLayerChange = (event: {
     added: any[];
     removed: any[];
     moved: any[];
@@ -58,11 +58,17 @@ const LayerTreeComponent: React.FC<LayerTreeComponentProps> = ({
           .filter((layer) => layer.type === "feature")
           .toArray()
           .reverse()
+          .map((layer) => ({
+            id: layer.id,
+            title: layer.title,
+            visible: layer.visible,
+            url: (layer as __esri.FeatureLayer).url,
+          }))
       );
     }
   };
 
-  map.layers.on("change", handleLayerChange); */
+  map.layers.on("change", handleLayerChange);
 
   return (
     <div>
